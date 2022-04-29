@@ -68,7 +68,7 @@ typedef	struct	s_rend_attr
 	int			stepY;
 	int			currentX;
 	int			currentY;
-	int			line_h;
+	int			line_height;
 	int			start;
 	int			end;
 	char		orient;	

@@ -29,22 +29,8 @@ void	set_side_dist(t_rend_attr *ra, t_data *data)
 	}
 }
 
-void	fisheye_fix(t_rend_attr *ra)
-{
-	if (ra->side == 0 && ra->vector.x < 0)
-		ra->side = 1;
-	if (ra->side == 2 && ra->vector.y < 0)
-		ra->side = 3;
-	if (ra->side == 0 || ra->side == 1)
-		ra->dist = ra->sideDistX - ra->deltaDistX;
-	else
-		ra->dist = ra->sideDistY - ra->deltaDistY;
-}
-
 void	set_distance_helper(t_rend_attr *ra, t_data *data)
 {
-	ra->currentX = (int)data->player.pos.x;
-	ra->currentY = (int)data->player.pos.y;
 	while (true)
 	{
 		if (ra->sideDistX < ra->sideDistY)
@@ -62,7 +48,14 @@ void	set_distance_helper(t_rend_attr *ra, t_data *data)
 		if (data->map[ra->currentX][ra->currentY] == '1')
 			break ;
 	}
-	fisheye_fix(ra);
+	if (ra->side == 0 && ra->vector.x < 0)
+		ra->side = 1;
+	if (ra->side == 2 && ra->vector.y < 0)
+		ra->side = 3;
+	if (ra->side == 0 || ra->side == 1)
+		ra->dist = (ra->currentX - data->player.pos.x + (1 - (double) ra->stepX) / 2) / ra->vector.x;
+	else
+		ra->dist = (ra->currentY - data->player.pos.y + (1 - (double) ra->stepY) / 2) / ra->vector.y;
 }
 
 void	set_distance(t_rend_attr *ra, t_data *data)
@@ -77,6 +70,8 @@ void	set_distance(t_rend_attr *ra, t_data *data)
 		ra->deltaDistY = __FLT_MAX__;
 	else
 		ra->deltaDistY = sqrtf(1 + (powf(ra->vector.x,2) / powf(ra->vector.y, 2)));
+	ra->currentX = (int)data->player.pos.x;
+	ra->currentY = (int)data->player.pos.y;
 	set_side_dist(ra, data);
 	set_distance_helper(ra, data);
 }
@@ -84,11 +79,11 @@ void	set_distance(t_rend_attr *ra, t_data *data)
 void	render_collum(t_rend_attr *ra, t_data *data)
 {
 	set_distance(ra, data);
-	ra->line_h = (int)(HEIGHT / ra->dist);
-	ra->start = -(ra->line_h) / 2 + HEIGHT / 2;
+	ra->line_height = (int)(HEIGHT / ra->dist);
+	ra->start = -(ra->line_height) / 2 + HEIGHT / 2;
 	if (ra->start < 0)
 		ra->start = 0;
-	ra->end = ra->line_h / 2 + HEIGHT / 2;
+	ra->end = ra->line_height / 2 + HEIGHT / 2;
 	if (ra->end >= HEIGHT)
 		ra->end = HEIGHT - 1;
 	int j = 0;
