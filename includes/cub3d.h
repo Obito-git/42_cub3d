@@ -103,6 +103,7 @@ typedef struct	s_cub3d
 	void			*win;
 	void			*img;
 	char			*img_p;
+	bool			mouse_turn;
 	t_textures		texture;
 	t_player		player;
 }				t_data;
@@ -116,6 +117,8 @@ typedef struct	s_cub3d
 /* KEY_HOOKS.C			*/
 
 int		key_hooks(int keycode, t_data *data);
+void	turn(int keycode, t_data *data);
+int		mouse_handler(int x, int y, void *param);
 
 /*	MAIN_UTILS.C		*/
 

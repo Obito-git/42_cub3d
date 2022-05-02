@@ -20,7 +20,7 @@ INCLS_DIR	= includes/
 
 LIBS_DIR	= libs/
 
-CFLAGS		=  -Wall -Wextra -Werror -I ${INCLS_DIR} 
+CFLAGS		=  -g3 -Wall -Wextra -Werror -I ${INCLS_DIR} 
 
 MLX_FLAGS	= -L${LIBS_DIR}minilibx-linux -lmlx -lX11 -lm -lXext -lbsd
 

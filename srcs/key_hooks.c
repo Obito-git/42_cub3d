@@ -1,5 +1,30 @@
 #include "cub3d.h"
 
+int	mouse_handler(int x, int y, void *param)
+{
+	(void) y;
+
+	t_data	*data = (t_data *) param;
+	(void) data;
+	if (data->mouse_turn)
+		return (0);
+	if (x < (WIDTH / 2) - 350)
+	{
+		data->mouse_turn = true;
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, 50);
+		turn(ARW_L, data);
+		
+	}
+	else if (x > (WIDTH / 2) + 350)
+	{
+		data->mouse_turn = true;
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, 50);
+		turn(ARW_R, data);
+	}
+	data->mouse_turn = false;
+	return (0);
+}
+
 void	move(int keycode, t_data *data)
 {
 	t_vector_2d new;
@@ -16,6 +41,7 @@ void	move(int keycode, t_data *data)
 		new = add_vectors(data->player.pos, scalar_mult(data->player.cam, s));
 	if (data->map[(int)new.x][(int)new.y] != '1')
 		data->player.pos = new;
+	render(data);
 }
 
 void	turn(int keycode, t_data *data)
@@ -43,20 +69,16 @@ void	turn(int keycode, t_data *data)
 	}
 	printf("player dir = [ %f : %f ] | lenght = %f \n", data->player.dir.x, data->player.dir.y, v2d_lenght(data->player.dir));
 	set_cam_vector(data);
+	render(data);
 }
 
 int	key_hooks(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 		ft_exit(data);
-	if (keycode == W || keycode == A || keycode == S || keycode == D
-		|| keycode == ARW_L || keycode == ARW_R)
-	{
-		if (keycode == W || keycode == A || keycode == S || keycode == D)
-			move(keycode, data);
-		else
-			turn(keycode, data);
-		render(data);
-	}
+	if (keycode == W || keycode == A || keycode == S || keycode == D)
+		move(keycode, data);
+	else if (keycode == ARW_L || keycode == ARW_R)
+		turn(keycode, data);
 	return (0);
 }
