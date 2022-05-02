@@ -42,8 +42,9 @@ int main(int ac, char **av)
 	*(unsigned int *)data.img_p = 0x00FFFF;
 	print_data(data);
 	render(&data);
-	mlx_do_key_autorepeaton(data.mlx);
-	mlx_key_hook(data.win, key_hooks, &data);
+	//mlx_do_key_autorepeaton(data.mlx);
+	//mlx_key_hook(data.win, key_hooks, &data); //speed limit fix
+	mlx_hook(data.win, 2, 1L << 0, key_hooks, &data); //speed limit fix
 	mlx_hook(data.win, 17, 1L << 2, ft_exit, &data);
 	mlx_loop(data.mlx);	
 	ft_exit(&data);

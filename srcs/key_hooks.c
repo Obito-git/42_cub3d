@@ -49,10 +49,14 @@ int	key_hooks(int keycode, t_data *data)
 {
 	if (keycode == ESC)
 		ft_exit(data);
-	else if (keycode == W || keycode == A || keycode == S || keycode == D)
-		move(keycode, data);
-	else
-		turn(keycode, data);
-	render(data);
+	if (keycode == W || keycode == A || keycode == S || keycode == D
+		|| keycode == ARW_L || keycode == ARW_R)
+	{
+		if (keycode == W || keycode == A || keycode == S || keycode == D)
+			move(keycode, data);
+		else
+			turn(keycode, data);
+		render(data);
+	}
 	return (0);
 }

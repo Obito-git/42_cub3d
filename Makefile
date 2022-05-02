@@ -33,6 +33,7 @@ SRCS		=	main.c\
 				main_utils.c\
 				key_hooks.c\
 				render/render.c\
+				render/calculations.c\
 				parsing/parsing.c\
 				parsing/add_textures.c\
 				parsing/map_processing.c\
