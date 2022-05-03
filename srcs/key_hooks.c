@@ -11,14 +11,14 @@ int	mouse_handler(int x, int y, void *param)
 	if (x < (WIDTH / 2) - 350)
 	{
 		data->mouse_turn = true;
-		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, 50);
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_L, data);
 		
 	}
 	else if (x > (WIDTH / 2) + 350)
 	{
 		data->mouse_turn = true;
-		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, 50);
+		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_R, data);
 	}
 	data->mouse_turn = false;
