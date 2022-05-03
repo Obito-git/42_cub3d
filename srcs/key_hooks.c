@@ -6,7 +6,7 @@ int	mouse_handler(int x, int y, void *param)
 
 	t_data	*data = (t_data *) param;
 	(void) data;
-	if (data->mouse_turn)
+	if (x > WIDTH / 2 - 550 && x < WIDTH / 2 + 550)
 		return (0);
 	if (x < WIDTH / 2 - 550)
 	{
@@ -35,6 +35,12 @@ void	move(int keycode, t_data *data)
 		new = sub_vectors(data->player.pos, scalar_mult(data->player.dir, s));
 	else if (keycode == D)
 		new = add_vectors(data->player.pos, scalar_mult(data->player.cam, s));
+	if ((((int)data->player.pos.x != (int)new.x) || ((int)data->player.pos.y != (int)new.y))
+		&& (data->map[(int)new.x][(int)new.y] != '1'))
+	{
+		data->map[(int)data->player.pos.x][(int)data->player.pos.y] = '0';
+		data->map[(int)new.x][(int)new.y] = 'P';
+	}
 	if (data->map[(int)new.x][(int)new.y] != '1')
 		data->player.pos = new;
 	render(data);

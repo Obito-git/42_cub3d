@@ -162,6 +162,9 @@ int		map_processing(t_data *data);
 
 void	render(t_data *data);
 
+/*minimap.c*/
+void	render_minimap(t_data *data);
+
 /*	CALCULATIONS.C		*/
 void	set_side_dist(t_rend_attr *ra, t_data *data);
 void	set_side_dist_helper(t_rend_attr *ra, t_data *data);

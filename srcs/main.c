@@ -44,7 +44,6 @@ int main(int ac, char **av)
 	render(&data);
 	//mlx_do_key_autorepeaton(data.mlx);
 	//mlx_key_hook(data.win, key_hooks, &data); //speed limit fix
-	data.mouse_turn = false; // mouse bonus
 	//mlx_mouse_hide(data.mlx, data.win); //mouse bonus
 	mlx_hook(data.win, 06, 1L << 6, mouse_handler, &data); //mouse bonus
 	mlx_hook(data.win, 2, 1L << 0, key_hooks, &data); //speed limit fix

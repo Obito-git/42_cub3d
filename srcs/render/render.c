@@ -54,5 +54,6 @@ void	render(t_data *data)
 		i++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
+	render_minimap(data);
 	free(rend_attr);
 }
