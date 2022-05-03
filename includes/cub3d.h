@@ -103,7 +103,6 @@ typedef struct	s_cub3d
 	void			*win;
 	void			*img;
 	char			*img_p;
-	bool			mouse_turn;
 	t_textures		texture;
 	t_player		player;
 }				t_data;

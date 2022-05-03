@@ -8,20 +8,16 @@ int	mouse_handler(int x, int y, void *param)
 	(void) data;
 	if (data->mouse_turn)
 		return (0);
-	if (x < (WIDTH / 2) - 350)
+	if (x < WIDTH / 2 - 550)
 	{
-		data->mouse_turn = true;
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_L, data);
-		
 	}
-	else if (x > (WIDTH / 2) + 350)
+	else if (x > WIDTH / 2 + 550)
 	{
-		data->mouse_turn = true;
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_R, data);
 	}
-	data->mouse_turn = false;
 	return (0);
 }
 
