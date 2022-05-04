@@ -10,6 +10,7 @@ typedef	struct	s_vector_2d
 }				t_vector_2d;
 
 t_vector_2d	add_vectors(t_vector_2d a, t_vector_2d b);
+t_vector_2d	create_vector(float x, float y);
 t_vector_2d sub_vectors(t_vector_2d a, t_vector_2d b);
 
 t_vector_2d scalar_mult(t_vector_2d a, float f);

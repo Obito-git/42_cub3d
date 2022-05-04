@@ -1,4 +1,12 @@
 #include "vector_2d.h"
+t_vector_2d	create_vector(float x, float y)
+{
+	t_vector_2d	res;
+
+	res.x = x;
+	res.y = y;
+	return (res);
+}
 
 t_vector_2d add_vectors(t_vector_2d a, t_vector_2d b)
 {

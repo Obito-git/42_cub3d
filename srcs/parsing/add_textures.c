@@ -107,8 +107,10 @@ int	get_textures(t_data *data)
 		&p, &p);
 	data->texture.est = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[3],
 		&p, &p);
+	p = 100;
 	if(data->texture.est == NULL || data->texture.north == NULL ||
-		data->texture.west == NULL || data->texture.south == NULL)
+		data->texture.west == NULL || data->texture.south == NULL
+		|| !add_minimap_textures(data))
 		return (0);
 	while (i < 4)
 	{

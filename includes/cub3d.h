@@ -38,22 +38,6 @@
 /*						STRUCTS							*/
 /*######################################################*/
 
-/*typedef	struct	s_side_dist
-{
-	float	dist;
-	int		side;
-}			t_sd; */
-
-/*
-typedef	struct	s_calc
-{
-	float	sd[2];
-	float	delta_dist[2];
-	int		step[2];
-	int		cur_pos[2];
-}				t_calc; */
-
-
 typedef	struct	s_rend_attr
 {
 	t_vector_2d	vector;
@@ -88,6 +72,9 @@ typedef	struct	s_textures
 	void	*south;
 	void	*est;
 	void	*west;
+	void	*minimap_border;
+	void	*minimap_wall;
+	void	*minimap_player;
 }				t_textures;
 
 typedef struct	s_cub3d
@@ -139,6 +126,9 @@ int		add_south_texture(t_data *data, char *temp);
 int		add_east_texture(t_data *data, char *temp);
 int		add_west_texture(t_data *data, char *temp);
 int		get_textures(t_data *data);
+
+/*	ADD_MINIMAP_TEXTURES.C		*/
+bool	add_minimap_textures(t_data *data);
 
 /*	PARSING.C			*/
 

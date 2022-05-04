@@ -16,6 +16,12 @@ void	free_mlx(t_data *data)
 		mlx_destroy_image(data->mlx, data->texture.est);
 	if (data->texture.west != NULL)
 		mlx_destroy_image(data->mlx, data->texture.west);
+	if (data->texture.minimap_border)
+		mlx_destroy_image(data->mlx, data->texture.minimap_border);
+	if (data->texture.minimap_wall)
+		mlx_destroy_image(data->mlx, data->texture.minimap_wall);
+	if (data->texture.minimap_player)
+		mlx_destroy_image(data->mlx, data->texture.minimap_player);
 	if (data->mlx != NULL)
 	{
 		if (data->img != NULL)
