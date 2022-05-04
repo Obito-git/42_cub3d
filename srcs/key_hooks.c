@@ -6,14 +6,14 @@ int	mouse_handler(int x, int y, void *param)
 
 	t_data	*data = (t_data *) param;
 	(void) data;
-	if (x > WIDTH / 2 - 550 && x < WIDTH / 2 + 550)
+	if (x > WIDTH / 2 - 400 && x < WIDTH / 2 + 400)
 		return (0);
-	if (x < WIDTH / 2 - 550)
+	if (x < WIDTH / 2 - 400)
 	{
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_L, data);
 	}
-	else if (x > WIDTH / 2 + 550)
+	else if (x > WIDTH / 2 + 400)
 	{
 		mlx_mouse_move(data->mlx, data->win, WIDTH / 2, HEIGHT / 2);
 		turn(ARW_R, data);
@@ -52,7 +52,7 @@ void	turn(int keycode, t_data *data)
 	t_vector_2d old_cam;
 	int			s;
 
-	s = 345;
+	s = 352;
 	old_dir = data->player.dir;
 	old_cam = data->player.cam;
 	if (keycode == ARW_L)
