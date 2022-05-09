@@ -36,8 +36,8 @@ void	draw_player(t_data *data, int offset)
 	minimap_pp += offset / 3;
 	(void) pdy;
 	(void) pdx;
-	//draw_line(data, create_vector(minimap_pp, minimap_pp),
-	//	create_vector(minimap_pp + pdx * 14, minimap_pp + pdy * 14), 0xDC143C);
+	draw_line(data, create_2point(minimap_pp, minimap_pp),
+		create_2point(minimap_pp + pdx * 14, minimap_pp + pdy * 14), 0xDC143C);
 }
 
 void	draw_wall_iteration(int *i, int *y, int *row, int *column)
