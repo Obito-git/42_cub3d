@@ -47,12 +47,10 @@ void	set_side_dist_helper(t_data *data)
 		if (data->world_map[(int)data->map.x][(int)data->map.y] == '1')
 			data->hit = true;
 	}
-	/*
 	if (data->side == 0 && data->ray_dir.x < 0)
 		data->side = 1;
 	if (data->side == 2 && data->ray_dir.y < 0)
 		data->side = 3;
-	*/
 	if (data->side == 0)
 		data->perpWallDist = data->side_distance.x - data->delta_distance.x;
 	else
