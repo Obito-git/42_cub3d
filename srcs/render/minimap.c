@@ -68,11 +68,11 @@ void	draw_wall(t_data *data, int offset)
 	{
 		column = (int)data->player.pos.y - 4;
 		draw_wall_iteration(&i, &y, &row, &column);
-		if (!data->map[row])
+		if (!data->world_map[row])
 			break;
-		while (column < (int)data->player.pos.y + 5 && data->map[row][column])
+		while (column < (int)data->player.pos.y + 5 && data->world_map[row][column])
 		{
-			if (data->map[row][column] == '1')
+			if (data->world_map[row][column] == '1')
 				mlx_put_image_to_window(data->mlx, data->win, data->texture.minimap_wall,
 					y * 10 + offset, i * 10 + offset);
 			column++;

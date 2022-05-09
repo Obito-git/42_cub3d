@@ -45,12 +45,12 @@ int	ft_exit(t_data *data)
 		i++;
 	}
 	free(data->txtrs);
-	if (data->map != NULL)
+	if (data->world_map != NULL)
 	{
 		i = 0;
-		while (data->map[i])
-			free(data->map[i++]);
-		free(data->map);
+		while (data->world_map[i])
+			free(data->world_map[i++]);
+		free(data->world_map);
 	}
 	free_mlx(data);
 	exit (0);

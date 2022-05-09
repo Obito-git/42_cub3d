@@ -37,27 +37,6 @@
 /*						STRUCTS							*/
 /*######################################################*/
 
-typedef	struct	s_rend_attr
-{
-	t_2vector	vector;
-	int			column_numb;
-	int			side;
-	float		dist;
-	float		sideDistX;
-	float		sideDistY;
-	float		deltaDistX;
-	float		deltaDistY;
-	int			stepX;
-	int			stepY;
-	int			currentX;
-	int			currentY;
-	int			line_height;
-	int			start;
-	int			end;
-	char		orient;	
-}				t_rend_attr;
-
-
 typedef	struct	s_player
 {
 	t_2vector	pos;
@@ -89,12 +68,22 @@ typedef	struct	s_setup
 
 typedef struct	s_cub3d
 {
-	char			**map;
+	t_2vector		ray_dir;
+	char			**world_map;
 	char			**txtrs;
 	void			*mlx;
 	void			*win;
 	void			*img;
 	char			*img_p;
+	t_2vector	side_distance;
+	t_2vector	delta_distance;
+	t_2vector	step;
+	t_2vector	map;
+	t_2vector	camera;
+	t_2vector	*plane;
+	float		perpWallDist;
+	int			side;
+	bool			hit;
 	t_setup			setup;
 	t_textures		texture;
 	t_player		player;
@@ -162,9 +151,9 @@ void	render(t_data *data);
 void	render_minimap(t_data *data);
 
 /*	CALCULATIONS.C		*/
-void	set_side_dist(t_rend_attr *ra, t_data *data);
-void	set_side_dist_helper(t_rend_attr *ra, t_data *data);
-void	set_distance(t_rend_attr *ra, t_data *data);
+void	set_side_dist(t_data *data);
+void	set_side_dist_helper(t_data *data);
+void	set_distance(t_data *data, int x);
 
 
 #endif

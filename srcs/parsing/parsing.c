@@ -15,12 +15,12 @@ void	exit_parser(t_data *data, char **temp, int fd)
 		i++;
 	}
 	free(data->txtrs);
-	if (data->map != NULL)
+	if (data->world_map != NULL)
 	{
 		i = 0;
-		while (data->map[i])
-			free(data->map[i++]);
-		free(data->map);
+		while (data->world_map[i])
+			free(data->world_map[i++]);
+		free(data->world_map);
 	}
 	ft_putstr_fd("cub3d: parsing error, check your file format.\n", 2);
 	exit (1);
@@ -61,20 +61,20 @@ int	add_map_line(t_data *data, char *line)
 	if (check_map_line(line) == 0)
 		return (0);
 	size = 0;
-	temp = data->map;
+	temp = data->world_map;
 	while (temp[size])
 		size++;
-	data->map = malloc(sizeof(char *) * (size + 2));
-	if (data->map == NULL)
+	data->world_map = malloc(sizeof(char *) * (size + 2));
+	if (data->world_map == NULL)
 		return (0);
-	data->map[size] = ft_strdup(line);
-	if (data->map[size] == NULL)
+	data->world_map[size] = ft_strdup(line);
+	if (data->world_map[size] == NULL)
 		return (0);
-	data->map[size + 1] = NULL;
+	data->world_map[size + 1] = NULL;
 	size = 0;
 	while (temp[size])
 	{
-		data->map[size] = temp[size];
+		data->world_map[size] = temp[size];
 		size++;
 	}
 	free(temp);

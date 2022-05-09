@@ -14,7 +14,7 @@ int	check_file_name(char *file_name)
 
 void	init_data(t_data *data)
 {
-	data->map = NULL;
+	data->world_map = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = NULL;
@@ -30,13 +30,13 @@ void	init_data(t_data *data)
 		ft_putstr_fd("cub3d: malloc issue.\n", 2);
 		exit(1);
 	}
-	data->map = malloc(sizeof(char *) * 1);
-	if (data->map == NULL)
+	data->world_map = malloc(sizeof(char *) * 1);
+	if (data->world_map == NULL)
 	{
 		ft_putstr_fd("cub3d: malloc issue.\n", 2);
 		exit(1);
 	}
-	data->map[0] = NULL;
+	data->world_map[0] = NULL;
 	data->txtrs[0] = NULL;
 	data->txtrs[1] = NULL;
 	data->txtrs[2] = NULL;
@@ -67,9 +67,9 @@ void	print_data(t_data data)
 
 	printf("\n___MAP:___\n");
 	i = 0;
-	while (data.map[i])
+	while (data.world_map[i])
 	{
-		printf("<%s>\n", data.map[i]);
+		printf("<%s>\n", data.world_map[i]);
 		i++;
 	}
 }

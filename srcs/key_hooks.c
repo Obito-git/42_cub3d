@@ -36,12 +36,12 @@ void	move(int keycode, t_data *data)
 	else if (keycode == D)
 		new = vector2_sum(data->player.pos, vector2_mult(data->player.cam, s));
 	if ((((int)data->player.pos.x != (int)new.x) || ((int)data->player.pos.y != (int)new.y))
-		&& (data->map[(int)new.x][(int)new.y] != '1'))
+		&& (data->world_map[(int)new.x][(int)new.y] != '1'))
 	{
-		data->map[(int)data->player.pos.x][(int)data->player.pos.y] = '0';
-		data->map[(int)new.x][(int)new.y] = 'P';
+		data->world_map[(int)data->player.pos.x][(int)data->player.pos.y] = '0';
+		data->world_map[(int)new.x][(int)new.y] = 'P';
 	}
-	if (data->map[(int)new.x][(int)new.y] != '1')
+	if (data->world_map[(int)new.x][(int)new.y] != '1')
 		data->player.pos = new;
 	render(data);
 }

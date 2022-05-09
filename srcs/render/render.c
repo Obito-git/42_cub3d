@@ -1,16 +1,16 @@
 #include "cub3d.h"
 
-unsigned int	get_collum_color(t_rend_attr *ra, int j)
+unsigned int	get_collum_color(t_data *data, int j, int start, int end)
 {
-	if (j < ra->start)
+	if (j < start)
 		return (0x00FFFF);
-	else if (j >= ra->start && j < ra->end)
+	else if (j >= start && j < end)
 	{
-		if (ra->side == 0)
+		if (data->side == 0)
 			return (0xFF6666);
-		else if (ra->side == 1)
+		else if (data->side == 1)
 			return (0xFF9999);
-		else if (ra->side == 2)
+		else if (data->side == 2)
 			return (0x6600CC);
 		else
 			return (0x404040);
@@ -19,41 +19,38 @@ unsigned int	get_collum_color(t_rend_attr *ra, int j)
 		return (0x009900);
 }
 
-void	render_collum(t_rend_attr *ra, t_data *data)
+void	render_collum(t_data *data, int x)
 {
-	set_distance(ra, data);
-	ra->line_height = (int)(HEIGHT / ra->dist);
-	ra->start = -(ra->line_height) / 2 + HEIGHT / 2;
-	if (ra->start < 0)
-		ra->start = 0;
-	ra->end = ra->line_height / 2 + HEIGHT / 2;
-	if (ra->end >= HEIGHT)
-		ra->end = HEIGHT - 1;
+	int start, end, line_height;
+	set_distance(data, x);
+	line_height = (int)(HEIGHT / data->perpWallDist);
+	start = -(line_height) / 2 + HEIGHT / 2;
+	if (start < 0)
+		start = 0;
+	end = line_height / 2 + HEIGHT / 2;
+	if (end >= HEIGHT)
+		end = HEIGHT - 1;
 	int j = 0;
 	while (j < HEIGHT)
 	{
 		*(unsigned int *)(data->img_p + (j * data->setup.size_line
-			+ ra->column_numb * (data->setup.bpp / 8))) = get_collum_color(ra, j);
+			+ x * (data->setup.bpp / 8))) = get_collum_color(data, j, start, end);
 		j++;
 	}
 }
 
 void	render(t_data *data)
 {
-	int			i;
-	t_rend_attr	*rend_attr;
+	int	x;
 
-	rend_attr = (t_rend_attr *) malloc(sizeof(t_rend_attr));
-	if (!rend_attr)
-		return ;
-	i = 0;
-	while (i < WIDTH)
+	x = 0;
+	data->plane = &data->player.cam;
+	while (x < WIDTH)
 	{
-		rend_attr->column_numb = i;
-		render_collum(rend_attr, data);
-		i++;
+		data->hit = false;
+		render_collum(data, x);
+		x++;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	render_minimap(data);
-	free(rend_attr);
 }
