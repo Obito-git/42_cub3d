@@ -92,9 +92,9 @@ int	add_colors(t_data *data, char *temp)
 	if (temp[i] == 0)
 		return 0;
 	if (temp[0] == 'F')
-		tmp = data->floor_c;
+		tmp = data->setup.floor_c;
 	else
-		tmp = data->sky_c;
+		tmp = data->setup.floor_c;
 	tmp[0] = (unsigned char)ft_atoi(temp + i);
 	while (ft_isdigit(temp[i]) == 0 && temp[i])
 		i++;

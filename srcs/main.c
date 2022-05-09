@@ -37,8 +37,8 @@ int main(int ac, char **av)
 
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3d");
 	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-	data.img_p = mlx_get_data_addr(data.img, &data.bpp,
-				&data.size_line, &data.endian);
+	data.img_p = mlx_get_data_addr(data.img, &data.setup.bpp,
+				&data.setup.size_line, &data.setup.endian);
 	*(unsigned int *)data.img_p = 0x00FFFF;
 	print_data(data);
 	render(&data);

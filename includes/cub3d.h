@@ -76,19 +76,26 @@ typedef	struct	s_textures
 	void	*minimap_player;
 }				t_textures;
 
-typedef struct	s_cub3d
+typedef	struct	s_setup
 {
-	int				bpp;
-	int				size_line;
-	int				endian;
-	char			**map;
-	char			**txtrs;
+	int bpp;
+	int size_line;
+	int endian;
+	int	floor_color;
+	int	sky_color;
 	unsigned char	floor_c[3];
 	unsigned char	sky_c[3];
+}	t_setup;
+
+typedef struct	s_cub3d
+{
+	char			**map;
+	char			**txtrs;
 	void			*mlx;
 	void			*win;
 	void			*img;
 	char			*img_p;
+	t_setup			setup;
 	t_textures		texture;
 	t_player		player;
 }				t_data;

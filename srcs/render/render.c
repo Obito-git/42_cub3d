@@ -32,8 +32,8 @@ void	render_collum(t_rend_attr *ra, t_data *data)
 	int j = 0;
 	while (j < HEIGHT)
 	{
-		*(unsigned int *)(data->img_p + (j * data->size_line
-			+ ra->column_numb * (data->bpp / 8))) = get_collum_color(ra, j);
+		*(unsigned int *)(data->img_p + (j * data->setup.size_line
+			+ ra->column_numb * (data->setup.bpp / 8))) = get_collum_color(ra, j);
 		j++;
 	}
 }
