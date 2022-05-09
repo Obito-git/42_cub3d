@@ -13,11 +13,10 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdbool.h>
-
-# include "math.h"
+# include <math.h>
 
 # include "keycodes_linux.h"
-# include "vector_2d.h"
+# include "2d_ftmath.h"
 # include "libft.h"
 # include "mlx.h"
 
@@ -40,7 +39,7 @@
 
 typedef	struct	s_rend_attr
 {
-	t_vector_2d	vector;
+	t_2vector	vector;
 	int			column_numb;
 	int			side;
 	float		dist;
@@ -61,9 +60,9 @@ typedef	struct	s_rend_attr
 
 typedef	struct	s_player
 {
-	t_vector_2d	pos;
-	t_vector_2d	dir;
-	t_vector_2d	cam;
+	t_2vector	pos;
+	t_2vector	dir;
+	t_2vector	cam;
 }				t_player;
 
 typedef	struct	s_textures

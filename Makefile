@@ -24,7 +24,7 @@ CFLAGS		=  -g3 -Wall -Wextra -Werror -I ${INCLS_DIR}
 
 MLX_FLAGS	= -L${LIBS_DIR}minilibx-linux -lmlx -lX11 -lm -lXext -lbsd
 
-FLAGS		= -L${LIBS_DIR}libft -lft -L${LIBS_DIR}libvector_2d -lvector_2d
+FLAGS		= -L${LIBS_DIR}libft -lft -L${LIBS_DIR}2d_ftmath -l2d_ftmath
 
 CC			= gcc
 
@@ -53,25 +53,25 @@ all:		${NAME}
 ${NAME}:	${OBJS}
 			make -C ${LIBS_DIR}libft
 			make -C ${LIBS_DIR}minilibx-linux
-			make -C ${LIBS_DIR}libvector_2d
+			make -C ${LIBS_DIR}2d_ftmath
 			${CC} -o $@ ${OBJS} ${FLAGS} ${MLX_FLAGS}
 
 
 sanitize:	${OBJS}
 			make -C ${LIBS_DIR}libft
 			make -C ${LIBS_DIR}minilibx-linux
-			make -C ${LIBS_DIR}libvector_2d
+			make -C ${LIBS_DIR}2d_ftmath
 			${CC} -o $@ ${OBJS} ${FLAGS} ${MLX_FLAGS} -g3 -fsanitize=address	
 
 clean:
 			make clean -C ${LIBS_DIR}libft
 			make clean -C ${LIBS_DIR}minilibx-linux
-			make clean -C ${LIBS_DIR}libvector_2d
+			make clean -C ${LIBS_DIR}2d_ftmath
 			${RM} ${OBJS}
 			
 fclean:		clean
 			make fclean -C ${LIBS_DIR}libft
-			make fclean -C ${LIBS_DIR}libvector_2d
+			make fclean -C ${LIBS_DIR}2d_ftmath
 			make clean -C ${LIBS_DIR}minilibx-linux
 			${RM} ${NAME} sanitize
 

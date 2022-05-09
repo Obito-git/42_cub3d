@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void draw_line(t_data *data, t_vector_2d start, t_vector_2d end, int color)
+void draw_line(t_data *data, t_2vector start, t_2vector end, int color)
 {
 	double deltaX;
 	double deltaY;
@@ -34,8 +34,10 @@ void	draw_player(t_data *data, int offset)
 	pdy = cos(pa);
 	pdx = sin(pa);
 	minimap_pp += offset / 3;
-	draw_line(data, create_vector(minimap_pp, minimap_pp),
-		create_vector(minimap_pp + pdx * 14, minimap_pp + pdy * 14), 0xDC143C);
+	(void) pdy;
+	(void) pdx;
+	//draw_line(data, create_vector(minimap_pp, minimap_pp),
+	//	create_vector(minimap_pp + pdx * 14, minimap_pp + pdy * 14), 0xDC143C);
 }
 
 void	draw_wall_iteration(int *i, int *y, int *row, int *column)

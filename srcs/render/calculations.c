@@ -59,8 +59,8 @@ void	set_side_dist_helper(t_rend_attr *ra, t_data *data)
 
 void	set_distance(t_rend_attr *ra, t_data *data)
 {
-	ra->vector = add_vectors(data->player.dir, 
-		scalar_mult(data->player.cam, ((2 * ra->column_numb) / (float)WIDTH) -1));
+	ra->vector = vector2_sum(data->player.dir, 
+		vector2_mult(data->player.cam, ((2 * ra->column_numb) / (float)WIDTH) -1));
 	if (ra->vector.x == 0)
 		ra->deltaDistX = __FLT_MAX__;
 	else
