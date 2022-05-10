@@ -6,11 +6,11 @@
 /*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:45:25 by lnelson           #+#    #+#             */
-/*   Updated: 2022/05/10 17:52:05 by lnelson          ###   ########.fr       */
+/*   Updated: 2022/05/10 18:26:44 by lnelson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "2d_ftmath.h"
+#include "ft_math2d.h"
 
 void	copy_2line(t_2line *this, t_2line to_copy)
 {

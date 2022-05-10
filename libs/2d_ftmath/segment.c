@@ -6,11 +6,11 @@
 /*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:45:23 by lnelson           #+#    #+#             */
-/*   Updated: 2022/05/10 17:51:28 by lnelson          ###   ########.fr       */
+/*   Updated: 2022/05/10 18:26:46 by lnelson          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "2d_ftmath.h"
+#include "ft_math2d.h"
 
 void	set_2segment_a(t_2segment	*this, t_2point a)
 {
