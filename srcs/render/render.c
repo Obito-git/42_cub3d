@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:18:58 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:19:19 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
+
 t_image	*get_side_texture(t_data *data, t_ray *ray)
 {
 	if (ray->side == NORTH_T)
@@ -19,10 +32,10 @@ void	draw_texture(t_data *data, t_ray *ray, t_image *texture)
 	while (i < 3)
 	{
 		*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
-			+ (int)ray->current_pixel.x  * (data->img.bpp / 8) + i))
-			= (unsigned int) (texture->addr[(int)ray->texture.y
-			* data->texture.north.size_line + (int)ray->texture.x
-			* (data->texture.north.bpp / 8) + i]);
+					+ (int)ray->current_pixel.x * (data->img.bpp / 8) + i))
+			= (unsigned int)(texture->addr[(int)ray->texture.y
+				* data->texture.north.size_line + (int)ray->texture.x
+				* (data->texture.north.bpp / 8) + i]);
 		i++;
 	}
 }
@@ -38,17 +51,17 @@ void	render_collum(t_data *data, t_ray *ray)
 	{
 		texture = get_side_texture(data, ray);
 		tmp = (int)ray->current_pixel.y * texture->size_line - HEIGHT
-		* texture->size_line / 2 + ray->line_height * texture->size_line / 2;
-        ray->texture.y = (int)(((tmp * TEXTURE_SIZE) / ray->line_height) / texture->size_line);
-        ray->texture_pos += ray->texture_step;
+			* texture->size_line / 2 + ray->line_height * texture->size_line / 2;
+		ray->texture.y = (int)(((tmp * TEXTURE_SIZE) / ray->line_height) / texture->size_line);
+		ray->texture_pos += ray->texture_step;
 		if (ray->current_pixel.y < ray->draw_start)
 			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
-					+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.sky_color;
+						+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.sky_color;
 		else if (ray->current_pixel.y >= ray->draw_start && ray->current_pixel.y < ray->draw_end)
-				draw_texture(data, ray, texture);
+			draw_texture(data, ray, texture);
 		else
 			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
-					+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.floor_color;
+						+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.floor_color;
 		ray->current_pixel.y += 1;
 	}
 }

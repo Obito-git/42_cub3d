@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:36:05 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:38:21 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -17,7 +29,7 @@
 # include <limits.h>
 
 # include "keycodes_linux.h"
-# include "2d_ftmath.h"
+# include "ft_math2d.h"
 # include "libft.h"
 # include "mlx.h"
 
@@ -39,7 +51,7 @@
 /*						STRUCTS							*/
 /*######################################################*/
 
-typedef	struct	s_image
+typedef struct s_image
 {
 	void	*img;
 	char	*addr;
@@ -50,14 +62,14 @@ typedef	struct	s_image
 	int		sky_color;
 }	t_image;
 
-typedef	struct	s_player
+typedef struct s_player
 {
 	t_2vector	pos;
 	t_2vector	dir;
 	t_2vector	cam;
-}				t_player;
+}	t_player;
 
-typedef	struct	s_textures
+typedef struct s_textures
 {
 	t_image		north;
 	t_image		west;
@@ -66,10 +78,9 @@ typedef	struct	s_textures
 	void		*minimap_border;
 	void		*minimap_wall;
 	void		*minimap_player;
-}				t_textures;
+}	t_textures;
 
-
-typedef struct	s_ray
+typedef struct s_ray
 {
 	t_2point	wall;
 	t_2point	texture;
@@ -81,7 +92,7 @@ typedef struct	s_ray
 	t_2vector	map;
 	t_2vector	camera;
 	t_2vector	*plane;
-	float		perpWallDist;
+	float		perp_wall_dist;
 	int			side;
 	bool		hit;
 	int			draw_start;
@@ -91,7 +102,7 @@ typedef struct	s_ray
 	double		texture_pos;
 }	t_ray;
 
-typedef struct	s_cub3d
+typedef struct s_cub3d
 {
 	char			**world_map;
 	char			**txtrs;
@@ -100,7 +111,7 @@ typedef struct	s_cub3d
 	t_image			img;
 	t_textures		texture;
 	t_player		player;
-}				t_data;
+}	t_data;
 
 /*######################################################*/
 /*						FUNCTIONS						*/
@@ -170,6 +181,5 @@ void	set_side_dist(t_data *data, t_ray *ray);
 void	set_side_dist_helper(t_data *data, t_ray *ray);
 void	set_distance(t_data *data, t_ray *ray);
 void	set_texture_position(t_data *data, t_ray *ray);
-
 
 #endif

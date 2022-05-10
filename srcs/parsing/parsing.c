@@ -1,34 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:06:52 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:13:48 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
-
-void	exit_parser(t_data *data, char **temp, int fd)
-{
-	int i;
-
-	i = 0;
-	while (get_next_line(fd, temp) != 0)
-		free(*temp);
-	free(*temp);
-	while (i < 4)
-	{
-		if (data->txtrs[i] != NULL)
-			free(data->txtrs[i]);
-		i++;
-	}
-	free(data->txtrs);
-	if (data->world_map != NULL)
-	{
-		i = 0;
-		while (data->world_map[i])
-			free(data->world_map[i++]);
-		free(data->world_map);
-	}
-	ft_putstr_fd("cub3d: parsing error, check your file format.\n", 2);
-	exit (1);
-}
 
 int	check_map_line(char *map_line)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (map_line[i] == ' ' || map_line[i] == '\t')
@@ -90,30 +76,24 @@ int	add_colors(t_data *data, char *temp)
 	while (ft_isdigit(temp[i]) == 0 && temp[i])
 		i++;
 	if (temp[i] == 0)
-		return 0;
+		return (0);
 	if (temp[0] == 'F')
 		tmp = (unsigned char *)(&(data->img.floor_color));
 	else
 		tmp = (unsigned char *)(&(data->img.sky_color));
 	tmp[0] = (unsigned char)ft_atoi(temp + i);
-															ft_putnbr_fd(ft_atoi(temp + i), 1);
-															write(1, "\n", 1);
 	to_next_nbr(&i, temp);
 	if (temp[i] == 0)
-		return 0;
+		return (0);
 	tmp[1] = (unsigned char)ft_atoi(temp + i);
-															ft_putnbr_fd(ft_atoi(temp + i), 1);
-															write(1, "\n", 1);
 	to_next_nbr(&i, temp);
 	if (temp[i] == 0)
-		return 0;
+		return (0);
 	tmp[2] = (unsigned char)ft_atoi(temp + i);
-															ft_putnbr_fd(ft_atoi(temp + i), 1);
-															write(1, "\n", 1);
 	return (1);
 }
 
-void		parsing_helper(t_data *data, char *temp, int *ret)
+void	parsing_helper(t_data *data, char *temp, int *ret)
 {
 	if (temp[0] == 'N' && temp[1] == 'O')
 		*ret = add_north_texture(data, temp);

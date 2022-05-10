@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_hooks.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:06:45 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:44:34 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	mouse_handler(int x, int y, void *param)
 {
-	(void) y;
+	t_data	*data;
 
-	t_data	*data = (t_data *) param;
-	(void) data;
+	(void) y;
+	data = (t_data *) param;
 	if (x > WIDTH / 2 - 400 && x < WIDTH / 2 + 400)
 		return (0);
 	if (x < WIDTH / 2 - 400)
@@ -23,7 +35,7 @@ int	mouse_handler(int x, int y, void *param)
 
 void	move(int keycode, t_data *data)
 {
-	t_2vector new;
+	t_2vector	new;
 	float		s;
 
 	s = 0.3;
@@ -50,8 +62,8 @@ void	move(int keycode, t_data *data)
 
 void	turn(int keycode, t_data *data)
 {
-	t_2vector old_dir;
-	t_2vector old_cam;
+	t_2vector	old_dir;
+	t_2vector	old_cam;
 	int			s;
 
 	s = 349;

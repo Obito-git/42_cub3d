@@ -1,28 +1,39 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:06:49 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:21:52 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void draw_line(t_data *data, t_2vector start, t_2vector end, int color)
+void	draw_line(t_data *data, t_2vector start, t_2vector end, int color)
 {
-	double deltaX;
-	double deltaY;
-	int pixels;
+	double	deltax;
+	double	deltay;
+	int		pixels;
 
-	deltaX = (end.x - start.x);
-	deltaY = (end.y - start.y);
-	pixels = sqrt((deltaX * deltaX) + (deltaY * deltaY));
-	deltaX /= pixels;
-	deltaY /= pixels;
+	deltax = (end.x - start.x);
+	deltay = (end.y - start.y);
+	pixels = sqrt((deltax * deltax) + (deltay * deltay));
+	deltax /= pixels;
+	deltay /= pixels;
 	while (pixels)
 	{
-   		mlx_pixel_put(data->mlx, data->win, start.x, start.y, color);
-    	start.x += deltaX;
-    	start.y += deltaY;
-    	--pixels;
+		mlx_pixel_put(data->mlx, data->win, start.x, start.y, color);
+		start.x += deltax;
+		start.y += deltay;
+		--pixels;
 	}
 }
 
 void	draw_player(t_data *data, int offset)
 {
-	//mlx_string_put(data->mlx, data->win, 50, 50, 322, "P");
 	float	pdx;
 	float	pdy;
 	float	pa;
@@ -59,8 +70,8 @@ void	draw_wall(t_data *data, int offset)
 {
 	int	row;
 	int	column;
-	int i;
-	int y;
+	int	i;
+	int	y;
 
 	i = 0;
 	row = (int)data->player.pos.x - 4;
@@ -69,7 +80,7 @@ void	draw_wall(t_data *data, int offset)
 		column = (int)data->player.pos.y - 4;
 		draw_wall_iteration(&i, &y, &row, &column);
 		if (!data->world_map[row])
-			break;
+			break ;
 		while (column < (int)data->player.pos.y + 5 && data->world_map[row][column])
 		{
 			if (data->world_map[row][column] == '1')
