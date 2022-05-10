@@ -54,7 +54,7 @@ void	turn(int keycode, t_data *data)
 	t_2vector old_cam;
 	int			s;
 
-	s = 352;
+	s = 349;
 	old_dir = data->player.dir;
 	old_cam = data->player.cam;
 	if (keycode == ARW_L)

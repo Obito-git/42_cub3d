@@ -55,7 +55,6 @@ typedef	struct	s_image
 typedef	struct	s_player
 {
 	t_2vector	pos;
-	t_2vector	prev_pos;
 	t_2vector	dir;
 	t_2vector	cam;
 }				t_player;
@@ -86,7 +85,7 @@ typedef struct	s_ray
 	t_2vector	*plane;
 	float		perpWallDist;
 	int			side;
-	bool			hit;
+	bool		hit;
 	int			draw_start;
 	int			draw_end;
 	int			line_height;

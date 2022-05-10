@@ -130,6 +130,9 @@ void	parsing(t_data *data, int fd)
 	char	*temp;
 	int		ret;
 
+	data->texture.minimap_border = NULL;
+	data->texture.minimap_wall = NULL;
+	data->texture.minimap_player = NULL;
 	ret = 1;
 	while (get_next_line(fd, &temp) != 0 && ret != 0)
 	{

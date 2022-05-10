@@ -39,10 +39,6 @@ int main(int ac, char **av)
 	data.img.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
 	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bpp,
 				&data.img.size_line, &data.img.endian);
-	//*(unsigned int *)data.img.addr = 0x0000FF;
-	data.img.floor_color = 0x0000FF;
-	data.img.sky_color = 0xFFA500;
-	data.player.prev_pos.x = INT_MAX;
 	print_data(data);
 	render(&data);
 	//mlx_do_key_autorepeaton(data.mlx);

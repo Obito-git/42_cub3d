@@ -66,8 +66,12 @@ void	render(t_data *data)
 		render_collum(data, &ray);
 		ray.current_pixel.x++;
 	}
-	for (int i = 0; i < HEIGHT; i++)
-		*(unsigned int *)(data->img.addr + (i * data->img.size_line + 0)) = 0;
+	ray.current_pixel.x = 0;
+	while ((int)ray.current_pixel.x < HEIGHT)
+	{
+		*(unsigned int *)(data->img.addr + ((int)ray.current_pixel.x * data->img.size_line + 0)) = 0;
+		ray.current_pixel.x += 1;
+	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);
 	render_minimap(data);
 }
