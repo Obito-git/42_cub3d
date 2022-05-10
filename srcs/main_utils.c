@@ -17,11 +17,11 @@ void	init_data(t_data *data)
 	data->world_map = NULL;
 	data->mlx = NULL;
 	data->win = NULL;
-	data->img = NULL;
-	data->texture.north = NULL;
-	data->texture.south = NULL;
-	data->texture.est = NULL;
-	data->texture.west = NULL;
+	data->img.img = NULL;
+	data->texture.north.img = NULL;
+	data->texture.south.img = NULL;
+	data->texture.east.img = NULL;
+	data->texture.west.img = NULL;
 	data->player.pos.x = -1;
 	data->player.pos.y = -1;
 	data->txtrs = malloc(sizeof(char *) * 4);
@@ -57,8 +57,8 @@ void	print_data(t_data data)
 	}
 	
 	printf("\n___COLORS:___\n");
-	printf("  sky_colors = %i | %i | %i \n", data.setup.sky_c[0], data.setup.sky_c[1], data.setup.sky_c[2]);
-	printf("floor_colors = %i | %i | %i \n", data.setup.floor_c[0], data.setup.floor_c[1], data.setup.floor_c[2]);
+	printf("  sky_colors = %i | %i | %i \n", data.img.sky_c[0], data.img.sky_c[1], data.img.sky_c[2]);
+	printf("floor_colors = %i | %i | %i \n", data.img.floor_c[0], data.img.floor_c[1], data.img.floor_c[2]);
 
 	printf("\n___PLAYER:___\n");
 	printf("player   position: [%f][%f]\n", data.player.pos.x, data.player.pos.y);

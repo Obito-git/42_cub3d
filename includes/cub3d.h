@@ -14,6 +14,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <math.h>
+# include <limits.h>
 
 # include "keycodes_linux.h"
 # include "2d_ftmath.h"
@@ -31,50 +32,52 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define TEXTURE_SIZE 64
 
 # define _PI_ 3.14159265358979323846
 /*######################################################*/
 /*						STRUCTS							*/
 /*######################################################*/
 
+typedef	struct	s_image
+{
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		floor_color;
+	int		sky_color;
+	unsigned char	floor_c[3];
+	unsigned char	sky_c[3];
+}	t_image;
+
 typedef	struct	s_player
 {
 	t_2vector	pos;
+	t_2vector	prev_pos;
 	t_2vector	dir;
 	t_2vector	cam;
 }				t_player;
 
 typedef	struct	s_textures
 {
-	void	*north;
-	void	*south;
-	void	*est;
-	void	*west;
-	void	*minimap_border;
-	void	*minimap_wall;
-	void	*minimap_player;
+	t_image		north;
+	t_image		west;
+	t_image		south;
+	t_image		east;
+	void		*minimap_border;
+	void		*minimap_wall;
+	void		*minimap_player;
 }				t_textures;
 
-typedef	struct	s_setup
-{
-	int bpp;
-	int size_line;
-	int endian;
-	int	floor_color;
-	int	sky_color;
-	unsigned char	floor_c[3];
-	unsigned char	sky_c[3];
-}	t_setup;
 
-typedef struct	s_cub3d
+typedef struct	s_ray
 {
-	t_2vector		ray_dir;
-	char			**world_map;
-	char			**txtrs;
-	void			*mlx;
-	void			*win;
-	void			*img;
-	char			*img_p;
+	t_2point	wall;
+	t_2point	texture;
+	t_2point	current_pixel;
+	t_2vector	ray_dir;
 	t_2vector	side_distance;
 	t_2vector	delta_distance;
 	t_2vector	step;
@@ -84,7 +87,20 @@ typedef struct	s_cub3d
 	float		perpWallDist;
 	int			side;
 	bool			hit;
-	t_setup			setup;
+	int			draw_start;
+	int			draw_end;
+	int			line_height;
+	int			texture_step;
+	double		texture_pos;
+}	t_ray;
+
+typedef struct	s_cub3d
+{
+	char			**world_map;
+	char			**txtrs;
+	void			*mlx;
+	void			*win;
+	t_image			img;
 	t_textures		texture;
 	t_player		player;
 }				t_data;
@@ -133,6 +149,7 @@ int		add_map_line(t_data *data, char *line);
 int		add_colors(t_data *data, char *temp);
 void	parsing_helper(t_data *data, char *temp, int *ret);
 void	parsing(t_data *data, int fd);
+bool	texture_addr_setter(t_data *data);
 
 /*	MAP_PROCESSING		*/
 
@@ -151,9 +168,10 @@ void	render(t_data *data);
 void	render_minimap(t_data *data);
 
 /*	CALCULATIONS.C		*/
-void	set_side_dist(t_data *data);
-void	set_side_dist_helper(t_data *data);
-void	set_distance(t_data *data, int x);
+void	set_side_dist(t_data *data, t_ray *ray);
+void	set_side_dist_helper(t_data *data, t_ray *ray);
+void	set_distance(t_data *data, t_ray *ray);
+void	set_texture_position(t_data *data, t_ray *ray);
 
 
 #endif

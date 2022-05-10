@@ -99,18 +99,18 @@ int	get_textures(t_data *data)
 
 	p = 64;
 	i = 0;
-	data->texture.north = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[0],
+	data->texture.north.img = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[0],
 		&p, &p);
-	data->texture.south = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[1],
+	data->texture.south.img = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[1],
 		&p, &p);
-	data->texture.west = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[2],
+	data->texture.west.img = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[2],
 		&p, &p);
-	data->texture.est = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[3],
+	data->texture.east.img = mlx_xpm_file_to_image(data->mlx, (data->txtrs)[3],
 		&p, &p);
 	p = 100;
-	if(data->texture.est == NULL || data->texture.north == NULL ||
-		data->texture.west == NULL || data->texture.south == NULL
-		|| !add_minimap_textures(data))
+	if(data->texture.east.img == NULL || data->texture.north.img == NULL ||
+		data->texture.west.img == NULL || data->texture.south.img == NULL
+		|| !add_minimap_textures(data) || !texture_addr_setter(data))
 		return (0);
 	while (i < 4)
 	{

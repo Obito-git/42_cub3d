@@ -8,14 +8,14 @@ int	ret_error(char *str, char ret_value)
 
 void	free_mlx(t_data *data)
 {
-	if (data->texture.north != NULL)
-		mlx_destroy_image(data->mlx, data->texture.north);
-	if (data->texture.south != NULL)
-		mlx_destroy_image(data->mlx, data->texture.south);
-	if (data->texture.est != NULL)
-		mlx_destroy_image(data->mlx, data->texture.est);
-	if (data->texture.west != NULL)
-		mlx_destroy_image(data->mlx, data->texture.west);
+	if (data->texture.north.img != NULL)
+		mlx_destroy_image(data->mlx, data->texture.north.img);
+	if (data->texture.south.img != NULL)
+		mlx_destroy_image(data->mlx, data->texture.south.img);
+	if (data->texture.east.img != NULL)
+		mlx_destroy_image(data->mlx, data->texture.east.img);
+	if (data->texture.west.img != NULL)
+		mlx_destroy_image(data->mlx, data->texture.west.img);
 	if (data->texture.minimap_border)
 		mlx_destroy_image(data->mlx, data->texture.minimap_border);
 	if (data->texture.minimap_wall)
@@ -24,8 +24,8 @@ void	free_mlx(t_data *data)
 		mlx_destroy_image(data->mlx, data->texture.minimap_player);
 	if (data->mlx != NULL)
 	{
-		if (data->img != NULL)
-			mlx_destroy_image(data->mlx, data->img);
+		if (data->img.img != NULL)
+			mlx_destroy_image(data->mlx, data->img.img);
 		if (data->win != NULL)
 			mlx_destroy_window(data->mlx, data->win);
 		mlx_destroy_display(data->mlx);

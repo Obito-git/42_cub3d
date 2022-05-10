@@ -36,10 +36,13 @@ int main(int ac, char **av)
 		return (2);
 
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3d");
-	data.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-	data.img_p = mlx_get_data_addr(data.img, &data.setup.bpp,
-				&data.setup.size_line, &data.setup.endian);
-	*(unsigned int *)data.img_p = 0x00FFFF;
+	data.img.img = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	data.img.addr = mlx_get_data_addr(data.img.img, &data.img.bpp,
+				&data.img.size_line, &data.img.endian);
+	//*(unsigned int *)data.img.addr = 0x0000FF;
+	data.img.floor_color = 0x0000FF;
+	data.img.sky_color = 0xFFA500;
+	data.player.prev_pos.x = INT_MAX;
 	print_data(data);
 	render(&data);
 	//mlx_do_key_autorepeaton(data.mlx);

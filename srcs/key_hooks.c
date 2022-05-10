@@ -35,6 +35,8 @@ void	move(int keycode, t_data *data)
 		new = vector2_sub(data->player.pos, vector2_mult(data->player.dir, s));
 	else if (keycode == D)
 		new = vector2_sum(data->player.pos, vector2_mult(data->player.cam, s));
+	if (data->world_map[(int)new.x][(int)new.y] == '1')
+		return ;
 	if ((((int)data->player.pos.x != (int)new.x) || ((int)data->player.pos.y != (int)new.y))
 		&& (data->world_map[(int)new.x][(int)new.y] != '1'))
 	{
@@ -69,7 +71,7 @@ void	turn(int keycode, t_data *data)
 		data->player.cam.x = old_cam.x * cos(sqrt(s)) - old_dir.y * sin(sqrt(s));
 		data->player.cam.y = old_cam.x * sin(sqrt(s)) + old_dir.y * cos(sqrt(s));
 	}
-	//printf("player dir = [ %f : %f ] | lenght = %f \n", data->player.dir.x, data->player.dir.y, v2d_lenght(data->player.dir));
+	printf("player dir = [ %f : %f ] | lenght = %f \n", data->player.dir.x, data->player.dir.y, v2d_lenght(data->player.dir));
 	set_cam_vector(data);
 	render(data);
 }

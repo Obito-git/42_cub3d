@@ -39,6 +39,7 @@ SRCS		=	main.c\
 				parsing/add_textures.c\
 				parsing/add_minimap_textures.c\
 				parsing/map_processing.c\
+				parsing/parsing_utils.c\
 
 OBJS		= ${SRCS:.c=.o}
 

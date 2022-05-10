@@ -9,6 +9,8 @@ typedef	struct	s_2point
 	double	y;
 }				t_2point;
 
+typedef	t_2point t_2vector;
+
 void		copy_2point(t_2point *this, t_2point to_copy);
 void		set_2point_coord(t_2point	*this, double x, double y);
 
@@ -21,10 +23,11 @@ t_2point	vector2_sum(t_2point this, t_2point vector);
 t_2point	vector2_sub(t_2point this, t_2point vector);
 t_2point	vector2_mult(t_2point this, double nbr);
 t_2point	vector2_normalized(t_2point this);
+float		v2d_lenght(t_2vector a);
 
 t_2point	create_2point(double x, double y);
 
-typedef	t_2point t_2vector;
+
 
 
 typedef struct s_2line

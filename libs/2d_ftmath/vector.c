@@ -58,3 +58,8 @@ t_2point	vector2_normalized(t_2point this)
 	copy_2point(&ret, this);
 	return (ret);
 }
+
+float		v2d_lenght(t_2vector a)
+{
+	return (sqrtf(powf(a.x, 2) + powf(a.y, 2)));
+}
