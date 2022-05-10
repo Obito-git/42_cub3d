@@ -15,3 +15,12 @@ bool	texture_addr_setter(t_data *data)
 		&t->west.size_line, &t->west.endian);
 	return (1);
 }
+
+void	to_next_nbr(int *index, char *str)
+{
+	while (ft_isdigit(str[*index]) != 0 && str[*index])
+		*index += 1;
+	*index += 1;
+	while (ft_isdigit(str[*index]) == 0 && str[*index])
+		*index += 1;
+}

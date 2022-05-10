@@ -48,8 +48,6 @@ typedef	struct	s_image
 	int		endian;
 	int		floor_color;
 	int		sky_color;
-	unsigned char	floor_c[3];
-	unsigned char	sky_c[3];
 }	t_image;
 
 typedef	struct	s_player
@@ -150,6 +148,7 @@ int		add_colors(t_data *data, char *temp);
 void	parsing_helper(t_data *data, char *temp, int *ret);
 void	parsing(t_data *data, int fd);
 bool	texture_addr_setter(t_data *data);
+void	to_next_nbr(int *index, char *str);
 
 /*	MAP_PROCESSING		*/
 

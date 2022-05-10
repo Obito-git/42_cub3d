@@ -92,20 +92,24 @@ int	add_colors(t_data *data, char *temp)
 	if (temp[i] == 0)
 		return 0;
 	if (temp[0] == 'F')
-		tmp = data->img.floor_c;
+		tmp = (unsigned char *)(&(data->img.floor_color));
 	else
-		tmp = data->img.floor_c;
+		tmp = (unsigned char *)(&(data->img.sky_color));
 	tmp[0] = (unsigned char)ft_atoi(temp + i);
-	while (ft_isdigit(temp[i]) == 0 && temp[i])
-		i++;
+															ft_putnbr_fd(ft_atoi(temp + i), 1);
+															write(1, "\n", 1);
+	to_next_nbr(&i, temp);
 	if (temp[i] == 0)
-		return 0;;
+		return 0;
 	tmp[1] = (unsigned char)ft_atoi(temp + i);
-	while (ft_isdigit(temp[i]) == 0 && temp[i])
-		i++;
+															ft_putnbr_fd(ft_atoi(temp + i), 1);
+															write(1, "\n", 1);
+	to_next_nbr(&i, temp);
 	if (temp[i] == 0)
-		return 0;;
+		return 0;
 	tmp[2] = (unsigned char)ft_atoi(temp + i);
+															ft_putnbr_fd(ft_atoi(temp + i), 1);
+															write(1, "\n", 1);
 	return (1);
 }
 
