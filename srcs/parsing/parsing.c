@@ -143,10 +143,10 @@ void	parsing(t_data *data, int fd)
 		parsing_helper(data, temp, &ret);
 		free(temp);
 		temp = NULL;
+		if (ret == 0)
+			exit_parser(data, &temp, fd);
 	}
 	parsing_helper(data, temp, &ret);
 	free(temp);
 	temp = NULL;
-	if (ret == 0)
-		exit_parser(data, &temp, fd);
 }

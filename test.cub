@@ -3,7 +3,7 @@ SO ./textures/wall_south.xpm
 WE ./textures/wall_west.xpm
 EA ./textures/wall_est.xpm
 
-C 50,25,12
+C 50,25,00
 F 255,00,00
 
         1111111111111111111111111
