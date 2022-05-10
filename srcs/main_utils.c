@@ -57,8 +57,8 @@ void	print_data(t_data data)
 	}
 	
 	printf("\n___COLORS:___\n");
-	printf("  sky_colors = %i | %i | %i \n", data.img.sky_c[0], data.img.sky_c[1], data.img.sky_c[2]);
-	printf("floor_colors = %i | %i | %i \n", data.img.floor_c[0], data.img.floor_c[1], data.img.floor_c[2]);
+	printf("  sky_colors = %X \n", data.img.sky_color);
+	printf("floor_colors = %X \n", data.img.floor_color);
 
 	printf("\n___PLAYER:___\n");
 	printf("player   position: [%f][%f]\n", data.player.pos.x, data.player.pos.y);
