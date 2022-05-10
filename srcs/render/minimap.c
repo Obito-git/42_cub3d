@@ -40,18 +40,17 @@ void	draw_player(t_data *data, int offset)
 	int		minimap_pp;
 
 	minimap_pp = 50 + offset / 2;
-	mlx_put_image_to_window(data->mlx, data->win, data->texture.minimap_player, minimap_pp, minimap_pp);
+	mlx_put_image_to_window(data->mlx, data->win,
+		data->texture.minimap_player, minimap_pp, minimap_pp);
 	pa = atan2(data->player.dir.y, data->player.dir.x);
 	pdy = cos(pa);
 	pdx = sin(pa);
 	minimap_pp += offset / 3;
-	(void) pdy;
-	(void) pdx;
 	draw_line(data, create_2point(minimap_pp, minimap_pp),
 		create_2point(minimap_pp + pdx * 14, minimap_pp + pdy * 14), 0xDC143C);
 }
 
-void	draw_wall_iteration(int *i, int *y, int *row, int *column)
+int	iter(int *i, int *y, int *row, int *column)
 {
 	*y = 0;
 	while (*row < 0)
@@ -64,6 +63,7 @@ void	draw_wall_iteration(int *i, int *y, int *row, int *column)
 		*column += 1;
 		*y += 1;
 	}
+	return (*row);
 }
 
 void	draw_wall(t_data *data, int offset)
@@ -78,13 +78,14 @@ void	draw_wall(t_data *data, int offset)
 	while (row < (int)data->player.pos.x + 5)
 	{
 		column = (int)data->player.pos.y - 4;
-		draw_wall_iteration(&i, &y, &row, &column);
-		if (!data->world_map[row])
+		if (!data->world_map[iter(&i, &y, &row, &column)])
 			break ;
-		while (column < (int)data->player.pos.y + 5 && data->world_map[row][column])
+		while (column < (int)data->player.pos.y + 5
+			&& data->world_map[row][column])
 		{
 			if (data->world_map[row][column] == '1')
-				mlx_put_image_to_window(data->mlx, data->win, data->texture.minimap_wall,
+				mlx_put_image_to_window(data->mlx,
+					data->win, data->texture.minimap_wall,
 					y * 10 + offset, i * 10 + offset);
 			column++;
 			y++;
@@ -99,7 +100,8 @@ void	render_minimap(t_data *data)
 	int	offset;
 
 	offset = 15;
-	mlx_put_image_to_window(data->mlx, data->win, data->texture.minimap_border, 0, 0);
+	mlx_put_image_to_window(data->mlx,
+		data->win, data->texture.minimap_border, 0, 0);
 	draw_player(data, offset);
 	draw_wall(data, offset);
 }

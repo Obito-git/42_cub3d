@@ -12,7 +12,6 @@
 
 #include "ft_math2d.h"
 
-
 void	substract_2vector(t_2point *this, t_2point vector)
 {
 	this->x -= vector.x;

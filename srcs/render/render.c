@@ -31,7 +31,8 @@ void	draw_texture(t_data *data, t_ray *ray, t_image *texture)
 	i = 0;
 	while (i < 3)
 	{
-		*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
+		*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y
+					* data->img.size_line
 					+ (int)ray->current_pixel.x * (data->img.bpp / 8) + i))
 			= (unsigned int)(texture->addr[(int)ray->texture.y
 				* data->texture.north.size_line + (int)ray->texture.x
@@ -40,9 +41,19 @@ void	draw_texture(t_data *data, t_ray *ray, t_image *texture)
 	}
 }
 
-void	render_collum(t_data *data, t_ray *ray)
+void	refresh_variables(t_ray *ray, t_image *texture)
 {
 	int		tmp;
+
+	tmp = (int)ray->current_pixel.y * texture->size_line - HEIGHT
+		* texture->size_line / 2 + ray->line_height * texture->size_line / 2;
+	ray->texture.y = (int)(((tmp * TEXTURE_SIZE)
+				/ ray->line_height) / texture->size_line);
+	ray->texture_pos += ray->texture_step;
+}
+
+void	render_collum(t_data *data, t_ray *ray)
+{
 	t_image	*texture;
 
 	set_distance(data, ray);
@@ -50,18 +61,18 @@ void	render_collum(t_data *data, t_ray *ray)
 	while ((int)ray->current_pixel.y < HEIGHT)
 	{
 		texture = get_side_texture(data, ray);
-		tmp = (int)ray->current_pixel.y * texture->size_line - HEIGHT
-			* texture->size_line / 2 + ray->line_height * texture->size_line / 2;
-		ray->texture.y = (int)(((tmp * TEXTURE_SIZE) / ray->line_height) / texture->size_line);
-		ray->texture_pos += ray->texture_step;
+		refresh_variables(ray, texture);
 		if (ray->current_pixel.y < ray->draw_start)
-			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
-						+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.sky_color;
-		else if (ray->current_pixel.y >= ray->draw_start && ray->current_pixel.y < ray->draw_end)
+			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y
+						* data->img.size_line + (int)ray->current_pixel.x
+						* (data->img.bpp / 8))) = data->img.sky_color;
+		else if (ray->current_pixel.y >= ray->draw_start
+			&& ray->current_pixel.y < ray->draw_end)
 			draw_texture(data, ray, texture);
 		else
-			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y * data->img.size_line
-						+ (int)ray->current_pixel.x * (data->img.bpp / 8))) = data->img.floor_color;
+			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y
+						* data->img.size_line + (int)ray->current_pixel.x
+						* (data->img.bpp / 8))) = data->img.floor_color;
 		ray->current_pixel.y += 1;
 	}
 }
@@ -82,7 +93,8 @@ void	render(t_data *data)
 	ray.current_pixel.x = 0;
 	while ((int)ray.current_pixel.x < HEIGHT)
 	{
-		*(unsigned int *)(data->img.addr + ((int)ray.current_pixel.x * data->img.size_line + 0)) = 0;
+		*(unsigned int *)(data->img.addr + ((int)ray.current_pixel.x
+					* data->img.size_line + 0)) = 0;
 		ray.current_pixel.x += 1;
 	}
 	mlx_put_image_to_window(data->mlx, data->win, data->img.img, 0, 0);

@@ -89,7 +89,8 @@ void	set_texture_position(t_data *data, t_ray *ray)
 	if (ray->side == 2 && ray->ray_dir.y < 0)
 		ray->texture.x = TEXTURE_SIZE - ray->texture.x - 1;
 	ray->texture_step = 1.0 * TEXTURE_SIZE / ray->line_height;
-	ray->texture_pos = (ray->draw_start - HEIGHT / 2 + ray->line_height / 2) * ray->texture_step;
+	ray->texture_pos = (ray->draw_start - HEIGHT / 2
+			+ ray->line_height / 2) * ray->texture_step;
 }
 
 void	set_distance(t_data *data, t_ray *ray)
@@ -100,7 +101,8 @@ void	set_distance(t_data *data, t_ray *ray)
 		data->player.dir.y + ray->plane->y * ray->camera.x);
 	set_2point_coord(&ray->map,
 		(int) data->player.pos.x, (int) data->player.pos.y);
-	set_2point_coord(&ray->delta_distance, fabs(1 / ray->ray_dir.x), fabs(1 / ray->ray_dir.y));
+	set_2point_coord(&ray->delta_distance,
+		fabs(1 / ray->ray_dir.x), fabs(1 / ray->ray_dir.y));
 	set_side_dist(data, ray);
 	set_side_dist_helper(data, ray);
 }

@@ -49,7 +49,8 @@ void	move(int keycode, t_data *data)
 		new = vector2_sum(data->player.pos, vector2_mult(data->player.cam, s));
 	if (data->world_map[(int)new.x][(int)new.y] == '1')
 		return ;
-	if ((((int)data->player.pos.x != (int)new.x) || ((int)data->player.pos.y != (int)new.y))
+	if ((((int)data->player.pos.x != (int)new.x)
+			|| ((int)data->player.pos.y != (int)new.y))
 		&& (data->world_map[(int)new.x][(int)new.y] != '1'))
 	{
 		data->world_map[(int)data->player.pos.x][(int)data->player.pos.y] = '0';
@@ -64,26 +65,27 @@ void	turn(int keycode, t_data *data)
 {
 	t_2vector	old_dir;
 	t_2vector	old_cam;
+	t_player	*p;
 	int			s;
 
 	s = 349;
+	p = &data->player;
 	old_dir = data->player.dir;
 	old_cam = data->player.cam;
 	if (keycode == ARW_L)
 	{
-		data->player.dir.x = old_dir.x * cos(-sqrt(s)) - old_dir.y * sin(-sqrt(s));
-		data->player.dir.y = old_dir.x * sin(-sqrt(s)) + old_dir.y * cos(-sqrt(s));
-		data->player.cam.x = old_cam.x * cos(-sqrt(s)) - old_dir.y * sin(-sqrt(s));
-		data->player.cam.y = old_cam.x * sin(-sqrt(s)) + old_dir.y * cos(-sqrt(s));
+		p->dir.x = old_dir.x * cos(-sqrt(s)) - old_dir.y * sin(-sqrt(s));
+		p->dir.y = old_dir.x * sin(-sqrt(s)) + old_dir.y * cos(-sqrt(s));
+		p->cam.x = old_cam.x * cos(-sqrt(s)) - old_dir.y * sin(-sqrt(s));
+		p->cam.y = old_cam.x * sin(-sqrt(s)) + old_dir.y * cos(-sqrt(s));
 	}
 	if (keycode == ARW_R)
 	{
-		data->player.dir.x = old_dir.x * cos(sqrt(s)) - old_dir.y * sin(sqrt(s));
-		data->player.dir.y = old_dir.x * sin(sqrt(s)) + old_dir.y * cos(sqrt(s));
-		data->player.cam.x = old_cam.x * cos(sqrt(s)) - old_dir.y * sin(sqrt(s));
-		data->player.cam.y = old_cam.x * sin(sqrt(s)) + old_dir.y * cos(sqrt(s));
+		p->dir.x = old_dir.x * cos(sqrt(s)) - old_dir.y * sin(sqrt(s));
+		p->dir.y = old_dir.x * sin(sqrt(s)) + old_dir.y * cos(sqrt(s));
+		p->cam.x = old_cam.x * cos(sqrt(s)) - old_dir.y * sin(sqrt(s));
+		p->cam.y = old_cam.x * sin(sqrt(s)) + old_dir.y * cos(sqrt(s));
 	}
-	printf("player dir = [ %f : %f ] | lenght = %f \n", data->player.dir.x, data->player.dir.y, v2d_lenght(data->player.dir));
 	set_cam_vector(data);
 	render(data);
 }
