@@ -78,8 +78,8 @@ void	add_p_pos(t_data *data, int x, int y)
 {
 	if (data->player.pos.x != -1)
 		return ;
-	data->player.pos.x = (float)x;
-	data->player.pos.y = (float)y;
+	data->player.pos.x = (float)x + 0.5;
+	data->player.pos.y = (float)y + 0.5;
 	if (data->world_map[x][y] == 'N')
 	{
 		data->player.dir.x = 1;

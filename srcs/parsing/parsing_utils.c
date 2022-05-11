@@ -12,6 +12,31 @@
 
 #include "cub3d.h"
 
+bool	check_player_count(char **s)
+{
+	int	count;
+	int	i;
+	int	y;
+
+	
+	y = 0;
+	count = 0;
+	if (!s)
+		return (NULL);
+	while (s[y])
+	{
+		i = 0;
+		while (s[y][i])
+		{
+			if (ft_isalpha(s[y][i]))
+				count++;
+			i++;
+		}
+		y++;
+	}
+	return (count == 1);
+}
+
 bool	texture_addr_setter(t_data *data)
 {
 	t_textures	*t;

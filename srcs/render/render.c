@@ -58,7 +58,7 @@ void	render_collum(t_data *data, t_ray *ray)
 
 	set_distance(data, ray);
 	set_texture_position(data, ray);
-	while ((int)ray->current_pixel.y < HEIGHT)
+	while ((int)ray->current_pixel.y <= HEIGHT)
 	{
 		texture = get_side_texture(data, ray);
 		refresh_variables(ray, texture);
@@ -67,7 +67,7 @@ void	render_collum(t_data *data, t_ray *ray)
 						* data->img.size_line + (int)ray->current_pixel.x
 						* (data->img.bpp / 8))) = data->img.sky_color;
 		else if (ray->current_pixel.y >= ray->draw_start
-			&& ray->current_pixel.y < ray->draw_end)
+			&& ray->current_pixel.y <= ray->draw_end)
 			draw_texture(data, ray, texture);
 		else
 			*(unsigned int *)(data->img.addr + ((int)ray->current_pixel.y

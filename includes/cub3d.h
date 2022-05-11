@@ -159,6 +159,7 @@ void	parsing_helper(t_data *data, char *temp, int *ret);
 void	parsing(t_data *data, int fd);
 bool	texture_addr_setter(t_data *data);
 void	to_next_nbr(int *index, char *str);
+bool	check_player_count(char **s);
 
 /*	MAP_PROCESSING		*/
 

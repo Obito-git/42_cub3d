@@ -26,7 +26,7 @@ int	starter(int ac, char **av, t_data *data)
 	init_data(data);
 	parsing(data, fd);
 	close(fd);
-	if (map_processing(data) < 0)
+	if (map_processing(data) < 0 || !check_player_count(data->world_map))
 	{
 		ft_putstr_fd("cub3d: Error, file corrupted\n", 2);
 		ft_exit(data);
