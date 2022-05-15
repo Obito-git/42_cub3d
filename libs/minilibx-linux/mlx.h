@@ -17,11 +17,11 @@
 ** FR msg - FR msg - FR msg
 **
 ** La MinilibX utilise 2 librairies supplementaires qu'il
-**      est necessaire de rajouter a la compilation :
+**      est_img necessaire de rajouter a la compilation :
 **   -lmlx -lXext -lX11
 **
 ** La MinilibX permet le chargement des images de type Xpm.
-** Notez que cette implementation est incomplete.
+** Notez que cette implementation est_img incomplete.
 ** Merci de communiquer tout probleme de chargement d'image
 ** de ce type.
 */

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:06:44 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:42:32 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 int	check_file_name(char *file_name)
 {
-	int i;
+	int	i;
 
 	i = ft_strlen(file_name);
 	if (i < 4)
@@ -12,37 +24,43 @@ int	check_file_name(char *file_name)
 	return (1);
 }
 
-void	init_data(t_data *data)
+void	init_data_h(t_data *data)
 {
-	data->map = NULL;
-	data->mlx = NULL;
-	data->win = NULL;
-	data->img = NULL;
-	data->texture.north = NULL;
-	data->texture.south = NULL;
-	data->texture.est = NULL;
-	data->texture.west = NULL;
-	data->player.pos.x = -1;
-	data->player.pos.y = -1;
 	data->txtrs = malloc(sizeof(char *) * 4);
 	if (data->txtrs == NULL)
 	{
 		ft_putstr_fd("cub3d: malloc issue.\n", 2);
 		exit(1);
 	}
-	data->map = malloc(sizeof(char *) * 1);
-	if (data->map == NULL)
+	data->world_map = malloc(sizeof(char *) * 1);
+	if (data->world_map == NULL)
 	{
 		ft_putstr_fd("cub3d: malloc issue.\n", 2);
 		exit(1);
 	}
-	data->map[0] = NULL;
+	data->world_map[0] = NULL;
 	data->txtrs[0] = NULL;
 	data->txtrs[1] = NULL;
 	data->txtrs[2] = NULL;
 	data->txtrs[3] = NULL;
 }
 
+void	init_data(t_data *data)
+{
+	data->world_map = NULL;
+	data->mlx = NULL;
+	data->win = NULL;
+	data->img.img = NULL;
+	data->texture.north.img = NULL;
+	data->texture.south.img = NULL;
+	data->texture.east.img = NULL;
+	data->texture.west.img = NULL;
+	data->player.pos.x = -1;
+	data->player.pos.y = -1;
+	init_data_h(data);
+}
+
+/*
 void	print_data(t_data data)
 {
 	int i;
@@ -57,8 +75,8 @@ void	print_data(t_data data)
 	}
 	
 	printf("\n___COLORS:___\n");
-	printf("  sky_colors = %i | %i | %i \n", data.sky_c[0], data.sky_c[1], data.sky_c[2]);
-	printf("floor_colors = %i | %i | %i \n", data.floor_c[0], data.floor_c[1], data.floor_c[2]);
+	printf("  sky_colors = %X \n", data.img.sky_color);
+	printf("floor_colors = %X \n", data.img.floor_color);
 
 	printf("\n___PLAYER:___\n");
 	printf("player   position: [%f][%f]\n", data.player.pos.x, data.player.pos.y);
@@ -67,9 +85,10 @@ void	print_data(t_data data)
 
 	printf("\n___MAP:___\n");
 	i = 0;
-	while (data.map[i])
+	while (data.world_map[i])
 	{
-		printf("<%s>\n", data.map[i]);
+		printf("<%s>\n", data.world_map[i]);
 		i++;
 	}
 }
+*/

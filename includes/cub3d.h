@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/10 17:36:05 by lnelson           #+#    #+#             */
+/*   Updated: 2022/05/10 17:38:21 by lnelson          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -11,13 +23,11 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <stdbool.h>
-
-# include "math.h"
+# include <math.h>
+# include <limits.h>
 
 # include "keycodes_linux.h"
-# include "vector_2d.h"
+# include "ft_math2d.h"
 # include "libft.h"
 # include "mlx.h"
 
@@ -32,67 +42,74 @@
 
 # define WIDTH 1280
 # define HEIGHT 720
+# define TEXTURE_SIZE 64
 
 # define _PI_ 3.14159265358979323846
 /*######################################################*/
 /*						STRUCTS							*/
 /*######################################################*/
 
-typedef	struct	s_rend_attr
+typedef struct s_image
 {
-	t_vector_2d	vector;
-	int			column_numb;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	int		floor_color;
+	int		sky_color;
+}	t_image;
+
+typedef struct s_player
+{
+	t_2vector	pos;
+	t_2vector	dir;
+	t_2vector	cam;
+}	t_player;
+
+typedef struct s_textures
+{
+	t_image		north;
+	t_image		west;
+	t_image		south;
+	t_image		east;
+	void		*minimap_border;
+	void		*minimap_wall;
+	void		*minimap_player;
+}	t_textures;
+
+typedef struct s_ray
+{
+	t_2point	wall;
+	t_2point	texture;
+	t_2point	current_pixel;
+	t_2vector	ray_dir;
+	t_2vector	side_distance;
+	t_2vector	delta_distance;
+	t_2vector	step;
+	t_2vector	map;
+	t_2vector	camera;
+	t_2vector	*plane;
+	float		perp_wall_dist;
 	int			side;
-	float		dist;
-	float		sideDistX;
-	float		sideDistY;
-	float		deltaDistX;
-	float		deltaDistY;
-	int			stepX;
-	int			stepY;
-	int			currentX;
-	int			currentY;
+	char		hit;
+	int			draw_start;
+	int			draw_end;
 	int			line_height;
-	int			start;
-	int			end;
-	char		orient;	
-}				t_rend_attr;
+	int			texture_step;
+	double		texture_pos;
+}	t_ray;
 
-
-typedef	struct	s_player
+typedef struct s_cub3d
 {
-	t_vector_2d	pos;
-	t_vector_2d	dir;
-	t_vector_2d	cam;
-}				t_player;
-
-typedef	struct	s_textures
-{
-	void	*north;
-	void	*south;
-	void	*est;
-	void	*west;
-	void	*minimap_border;
-	void	*minimap_wall;
-	void	*minimap_player;
-}				t_textures;
-
-typedef struct	s_cub3d
-{
-	int				bpp;
-	int				size_line;
-	int				endian;
-	char			**map;
+	char			**world_map;
 	char			**txtrs;
-	unsigned char	floor_c[3];
-	unsigned char	sky_c[3];
 	void			*mlx;
 	void			*win;
-	void			*img;
-	char			*img_p;
+	t_image			img;
 	t_textures		texture;
 	t_player		player;
-}				t_data;
+}	t_data;
 
 /*######################################################*/
 /*						FUNCTIONS						*/
@@ -128,7 +145,7 @@ int		add_west_texture(t_data *data, char *temp);
 int		get_textures(t_data *data);
 
 /*	ADD_MINIMAP_TEXTURES.C		*/
-bool	add_minimap_textures(t_data *data);
+char	add_minimap_textures(t_data *data);
 
 /*	PARSING.C			*/
 
@@ -136,8 +153,11 @@ void	exit_parser(t_data *data, char **temp, int fd);
 int		check_map_line(char *map_line);
 int		add_map_line(t_data *data, char *line);
 int		add_colors(t_data *data, char *temp);
-void	parsing_helper(t_data *data, char *temp, int *ret);
+void	parsing_helper(t_data *data, char *temp, int *ret, char *map_start);
 void	parsing(t_data *data, int fd);
+char	texture_addr_setter(t_data *data);
+void	to_next_nbr(int *index, char *str);
+char	check_player_count(char **s);
 
 /*	MAP_PROCESSING		*/
 
@@ -156,9 +176,9 @@ void	render(t_data *data);
 void	render_minimap(t_data *data);
 
 /*	CALCULATIONS.C		*/
-void	set_side_dist(t_rend_attr *ra, t_data *data);
-void	set_side_dist_helper(t_rend_attr *ra, t_data *data);
-void	set_distance(t_rend_attr *ra, t_data *data);
-
+void	set_side_dist(t_data *data, t_ray *ray);
+void	set_side_dist_helper(t_data *data, t_ray *ray);
+void	set_distance(t_data *data, t_ray *ray);
+void	set_texture_position(t_data *data, t_ray *ray);
 
 #endif
