@@ -16,7 +16,7 @@ t_image	*get_side_texture(t_data *data, t_ray *ray)
 {
 	if (ray->side == NORTH_T)
 		return (&data->texture.north);
-	if (ray->side == EAST_T)
+	if (ray->side == 3)
 		return (&data->texture.east);
 	if (ray->side == SOUTH_T)
 		return (&data->texture.south);
@@ -86,7 +86,7 @@ void	render(t_data *data)
 	while (ray.current_pixel.x < WIDTH)
 	{
 		ray.current_pixel.y = 0;
-		ray.hit = false;
+		ray.hit = 0;
 		render_collum(data, &ray);
 		ray.current_pixel.x++;
 	}

@@ -17,9 +17,11 @@ int	check_map_line(char *map_line)
 	int	i;
 
 	i = 0;
+	if (map_line[i] == 0)
+		return (0);
 	while (map_line[i] == ' ' || map_line[i] == '\t')
 		i++;
-	if (map_line[i] != '1' && map_line[ft_strlen(map_line) - 1] != '1')
+	if (map_line[i] != '1' || map_line[ft_strlen(map_line) - 1] != '1')
 		return (0);
 	while (map_line[i])
 	{
@@ -75,7 +77,7 @@ int	add_colors(t_data *data, char *temp)
 	i = 0;
 	while (ft_isdigit(temp[i]) == 0 && temp[i])
 		i++;
-	if (temp[i] == 0)
+	if (temp[i] == 0 || !is_correct_color_pattern(temp))
 		return (0);
 	if (temp[0] == 'F')
 		tmp = (unsigned char *)(&(data->img.floor_color));
@@ -93,40 +95,52 @@ int	add_colors(t_data *data, char *temp)
 	return (1);
 }
 
-void	parsing_helper(t_data *data, char *temp, int *ret)
+void	parsing_helper(t_data *data, char *temp, int *ret, char *map_start)
 {
-	if (temp[0] == 'N' && temp[1] == 'O')
+	if (temp[0] == 'N' && temp[1] == 'O' && temp[2] == ' ')
 		*ret = add_north_texture(data, temp);
-	else if (temp[0] == 'S' && temp[1] == 'O')
+	else if (temp[0] == 'S' && temp[1] == 'O' && temp[2] == ' ')
 		*ret = add_south_texture(data, temp);
-	else if (temp[0] == 'E' && temp[1] == 'A')
+	else if (temp[0] == 'E' && temp[1] == 'A' && temp[2] == ' ')
 		*ret = add_east_texture(data, temp);
-	else if (temp[0] == 'W' && temp[1] == 'E')
+	else if (temp[0] == 'W' && temp[1] == 'E' && temp[2] == ' ')
 		*ret = add_west_texture(data, temp);
-	else if (temp[0] == 'F' || temp[0] == 'C')
+	else if ((temp[0] == 'F' || temp[0] == 'C') && temp[1] == ' ')
 		*ret = add_colors(data, temp);
-	else if (temp[0] != 0)
-		*ret = add_map_line(data, temp);
+	else if (*map_start == 0)
+	{
+		if (temp[0] != 0)
+		{
+			*ret = add_map_line(data, temp);
+			*map_start = 1;
+		}
+	}
+	if (*map_start == 1)
+	{
+			*ret = add_map_line(data, temp);
+	}
 }
 
 void	parsing(t_data *data, int fd)
 {
 	char	*temp;
+	char	map_start;
 	int		ret;
 
+	map_start = 0;
 	data->texture.minimap_border = NULL;
 	data->texture.minimap_wall = NULL;
 	data->texture.minimap_player = NULL;
 	ret = 1;
 	while (get_next_line(fd, &temp) != 0 && ret != 0)
 	{
-		parsing_helper(data, temp, &ret);
+		parsing_helper(data, temp, &ret, &map_start);
 		free(temp);
 		temp = NULL;
 		if (ret == 0)
 			exit_parser(data, &temp, fd);
 	}
-	parsing_helper(data, temp, &ret);
+	parsing_helper(data, temp, &ret, &map_start);
 	free(temp);
 	temp = NULL;
 }

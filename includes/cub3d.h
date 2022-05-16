@@ -23,8 +23,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <stdbool.h>
 # include <math.h>
 # include <limits.h>
 
@@ -94,7 +92,7 @@ typedef struct s_ray
 	t_2vector	*plane;
 	float		perp_wall_dist;
 	int			side;
-	bool		hit;
+	char		hit;
 	int			draw_start;
 	int			draw_end;
 	int			line_height;
@@ -147,7 +145,7 @@ int		add_west_texture(t_data *data, char *temp);
 int		get_textures(t_data *data);
 
 /*	ADD_MINIMAP_TEXTURES.C		*/
-bool	add_minimap_textures(t_data *data);
+char	add_minimap_textures(t_data *data);
 
 /*	PARSING.C			*/
 
@@ -155,11 +153,12 @@ void	exit_parser(t_data *data, char **temp, int fd);
 int		check_map_line(char *map_line);
 int		add_map_line(t_data *data, char *line);
 int		add_colors(t_data *data, char *temp);
-void	parsing_helper(t_data *data, char *temp, int *ret);
+void	parsing_helper(t_data *data, char *temp, int *ret, char *map_start);
 void	parsing(t_data *data, int fd);
-bool	texture_addr_setter(t_data *data);
+char	texture_addr_setter(t_data *data);
 void	to_next_nbr(int *index, char *str);
-bool	check_player_count(char **s);
+char	check_player_count(char **s);
+int		is_correct_color_pattern(char *s);
 
 /*	MAP_PROCESSING		*/
 

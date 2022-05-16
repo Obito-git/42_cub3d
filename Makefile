@@ -37,7 +37,7 @@ SRCS		=	main.c\
 				render/minimap.c\
 				parsing/parsing.c\
 				parsing/add_textures.c\
-				parsing/add_minimap_textures.c\
+				parsing/colors_and_minimap.c\
 				parsing/map_processing.c\
 				parsing/parsing_utils.c\
 

@@ -20,7 +20,7 @@ int	starter(int ac, char **av, t_data *data)
 		return (ret_error("cub3d: Error, must have 1 argument.\n", 2));
 	if (check_file_name(av[1]) == 0)
 		return (ret_error("cube3d: Error, file must be a <.cub> type.\n", 2));
-	fd = open(av[1], O_RDONLY);
+	fd = open(av[1], O_RDWR);
 	if (fd == -1)
 		return (ret_error("cub3d: Error, unable to open file.\n", 2));
 	init_data(data);

@@ -57,7 +57,7 @@ void	set_side_dist_helper(t_data *data, t_ray *ray)
 			ray->side = 2;
 		}
 		if (data->world_map[(int)ray->map.x][(int)ray->map.y] == '1')
-			ray->hit = true;
+			ray->hit = 1;
 	}
 	if (ray->side == 0 && ray->ray_dir.x < 0)
 		ray->side = 1;

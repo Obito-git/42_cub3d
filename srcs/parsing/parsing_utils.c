@@ -6,23 +6,22 @@
 /*   By: lnelson <lnelson@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 17:06:53 by lnelson           #+#    #+#             */
-/*   Updated: 2022/05/10 17:13:53 by lnelson          ###   ########.fr       */
+/*   Updated: 2022/05/11 16:54:45 by amyroshn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	check_player_count(char **s)
+char	check_player_count(char **s)
 {
 	int	count;
 	int	i;
 	int	y;
 
-	
 	y = 0;
 	count = 0;
 	if (!s)
-		return (NULL);
+		return (0);
 	while (s[y])
 	{
 		i = 0;
@@ -34,10 +33,10 @@ bool	check_player_count(char **s)
 		}
 		y++;
 	}
-	return (count == 1);
+	return (1);
 }
 
-bool	texture_addr_setter(t_data *data)
+char	texture_addr_setter(t_data *data)
 {
 	t_textures	*t;
 
